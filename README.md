@@ -88,7 +88,11 @@ npm run preview
 npm test
 ```
 
-> ⚠️ **注意**：不能直接双击打开 `index.html`，项目使用 ES Modules + npm 依赖，必须通过 Vite 开发服务器运行。
+
+
+## 效果展示
+
+![image-20260209165106911](./README.assets/image-20260209165106911.png)
 
 ## License
 
