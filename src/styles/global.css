@@ -1,0 +1,240 @@
+:root {
+  color-scheme: dark;
+  --bg-primary: #05070d;
+  --bg-secondary: #0d1322;
+  --bg-halo: rgba(191, 168, 103, 0.23);
+  --text-main: #f5f6fa;
+  --text-subtle: rgba(240, 242, 248, 0.74);
+  --panel-bg: rgba(11, 15, 27, 0.52);
+  --panel-border: rgba(255, 255, 255, 0.2);
+  --btn-bg: rgba(255, 255, 255, 0.08);
+  --btn-active: rgba(201, 171, 108, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  font-family: "Noto Serif SC", "STSong", "Songti SC", serif;
+  background:
+    radial-gradient(circle at 50% 42%, var(--bg-halo), transparent 45%),
+    radial-gradient(circle at 12% 88%, rgba(111, 122, 165, 0.16), transparent 42%),
+    linear-gradient(125deg, var(--bg-primary), var(--bg-secondary));
+  color: var(--text-main);
+  transition: background 0.7s ease;
+}
+
+#app,
+.scene-host {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.scene-host::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.5) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.scene-host::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 0.6px, transparent 0.6px);
+  background-size: 3px 3px;
+  opacity: 0.24;
+  pointer-events: none;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero {
+  position: absolute;
+  top: 8vh;
+  left: 6vw;
+  max-width: 420px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4.4vw, 3.5rem);
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+.hero .subtitle {
+  margin: 14px 0 0;
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  color: var(--text-subtle);
+}
+
+.hero .hint {
+  margin: 18px 0 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  color: rgba(242, 228, 186, 0.75);
+}
+
+.status {
+  position: absolute;
+  top: 7vh;
+  right: 5vw;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: right;
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+  color: var(--text-subtle);
+}
+
+.control-panel {
+  position: absolute;
+  right: 5vw;
+  bottom: 8vh;
+  width: min(320px, 84vw);
+  padding: 16px;
+  border-radius: 18px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(14px);
+  pointer-events: auto;
+}
+
+.control-panel h2 {
+  margin: 0 0 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  color: rgba(245, 236, 208, 0.84);
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.control-button {
+  flex: 1;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+  background: var(--btn-bg);
+  color: var(--text-main);
+  padding: 8px 10px;
+  font-size: 0.88rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.control-button:hover {
+  transform: translateY(-1px);
+}
+
+.control-button.active {
+  background: var(--btn-active);
+}
+
+.control-button.toggle {
+  width: 100%;
+}
+
+.quote {
+  position: absolute;
+  left: 50%;
+  bottom: 5vh;
+  transform: translateX(-50%);
+  letter-spacing: 0.22em;
+  font-size: 0.95rem;
+  color: rgba(244, 236, 210, 0.82);
+}
+
+.center-toast {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  letter-spacing: 0.18em;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  color: rgba(251, 244, 220, 0.9);
+  text-shadow: 0 0 30px rgba(255, 217, 152, 0.28);
+  transition: opacity 0.4s ease;
+}
+
+.center-toast.show {
+  opacity: 1;
+}
+
+.mobile-fallback {
+  min-height: 100%;
+  display: grid;
+  place-content: center;
+  padding: 36px;
+  text-align: center;
+  gap: 14px;
+}
+
+.mobile-fallback h1 {
+  margin: 0;
+  font-size: 1.9rem;
+  letter-spacing: 0.1em;
+}
+
+.mobile-fallback p {
+  margin: 0;
+  color: var(--text-subtle);
+  line-height: 1.7;
+}
+
+.mobile-fallback small {
+  color: rgba(245, 226, 179, 0.8);
+}
+
+body.theme-xuan {
+  --bg-primary: #05070d;
+  --bg-secondary: #0d1322;
+  --bg-halo: rgba(191, 168, 103, 0.23);
+  --text-main: #f5f6fa;
+  --text-subtle: rgba(240, 242, 248, 0.74);
+  --panel-bg: rgba(11, 15, 27, 0.52);
+  --panel-border: rgba(255, 255, 255, 0.2);
+  --btn-bg: rgba(255, 255, 255, 0.08);
+  --btn-active: rgba(201, 171, 108, 0.35);
+}
+
+body.theme-yun {
+  --bg-primary: #f4efe4;
+  --bg-secondary: #d8d0bf;
+  --bg-halo: rgba(174, 151, 93, 0.25);
+  --text-main: #2f2a20;
+  --text-subtle: rgba(63, 55, 44, 0.7);
+  --panel-bg: rgba(255, 250, 240, 0.58);
+  --panel-border: rgba(79, 69, 53, 0.22);
+  --btn-bg: rgba(90, 75, 49, 0.08);
+  --btn-active: rgba(170, 143, 94, 0.34);
+}
